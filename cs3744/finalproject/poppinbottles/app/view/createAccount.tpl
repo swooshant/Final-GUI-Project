@@ -21,7 +21,7 @@
 	<form id="createAccount" action="<?= BASE_URL ?>/createAccounts/process" method="POST">
 		  <label>First Name: <input type="text" name="accountfirstname" class = "inputForm"></label><br>
 		  <label>Last Name: <input type="text" name="accountlastname" class = "inputForm"></label><br>
-		  <label>Email: <input type="text" name="accountemail" class = "inputForm"></label> <br>
+		  <label>Email: <input type="email" name="accountemail" class = "inputForm"></label> <br>
 		  <label>Username: <input type="text" name="accountusername" class = "inputForm"></label><br>
 		  <label>Password: <input type="password" name="accountpassword" class = "inputForm"></label><br>
 		  <p>Account Type</p>

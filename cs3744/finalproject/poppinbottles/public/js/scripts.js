@@ -4,16 +4,21 @@ $(document).ready(function(){
 	// does the change of image and the effects
 	function changeImage( ImNum )
 	{
-		$('#vineImag').fadeOut(350, function() {
+		/*$('#vineImag').fadeOut(350, function() {
 			if(flag == true) { 
 				$('#buttonBar').append("<br> <br><a href='aboutUs/' <h5 id='picMes'> Check Out: AboutUs for more information on our Vineyard Locations! </h5></a>");
 				$('#picMes').css('color', 'white');
 				$('#picMes').css('font-style', 'italic');
 				flag = false;
 			}
-			$('#vineImag').attr("src","/GUIProject5/cs3744/project5/poppinbottles/public/img/" + ImNum);
+			$('#vineImag').attr("src","/FinalProject/cs3744/finalproject/poppinbottles/public/img/" + ImNum);
 			$('#vineImag').fadeIn(350);
-		});
+		});*/
+		//var parallaxImg = document.getElementsByClassName("parallax");
+		//$('.parallaxImg').attr("src", "/FinalProject/cs3744/finalproject/poppinbottles/public/img/" + ImNum);
+
+		var url = "url(../poppinbottles/public/img/" + ImNum + ")";
+		$('#parallaxDiv').css("background-image", url); 
 		return false;
 	}
 		$('#revieWrapper .follow').click(function(){
@@ -108,6 +113,7 @@ $(document).ready(function(){
 			else{
 				$('#newsletter .inputForm').css('background-color', 'white');
 				$(this).css('color', 'white');	
+				return true;
 			}
 		});
 
@@ -143,6 +149,18 @@ $(document).ready(function(){
 		return;
 	});
 
+	$('#vin4button').click(function(){
+		var src=$('#vineImag').attr("src");
+		if(src == "img/vin4.jpg" ) {
+			return;
+		}else {
+			changeImage('vin4.jpg');
+		}
+		return;
+	});
+
+
+
 	//event trigger for the search bar being empty
 	$('#createAccount .submit').click(function(){
 		var firstname = document.getElementsByName("accountfirstname")[0].value;
@@ -173,4 +191,6 @@ $(document).ready(function(){
 			return true;
 		}
 	});
+
 });
+

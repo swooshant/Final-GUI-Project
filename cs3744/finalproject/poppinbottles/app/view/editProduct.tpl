@@ -15,9 +15,22 @@
 		<br><br>
 		<label>Rating:<br> <input type="text" name="Rating" value="<?= $product->get('Rating') ?>"></label>
 		<br><br>
-		<label>Image URL:<br> <input type="text" name="Img_Url" value="<?= $product->get('Img_Url') ?>"></label>
+		<label>Image URL:<br> <input type="text" name="Img_Url" value="<?= $product->get('Img_Url') ?>"></label><br><br>
+		<?php if ($product->get('red') == 1) {
+				echo '<label>Wine Type<br><input type="radio" name="wineType" value="red" checked="checked">Red<br>
+				<input type="radio" name="wineType" value="white>">White<br></label>
+				<input type="submit" class="submit" id="saveEdits" name="submit" value="Save Changes">';
+			}
+			else if ($product->get('white') == 1) {
+				echo '<label>Wine Type<br><input type="radio" name="wineType" value="red">Red<br>
+				<input type="radio" name="wineType" value="white" checked="checked">White<br></label>
+				<input type="submit" class="submit" id="saveEdits" name="submit" value="Save Changes">';
+			}
+		?>
+
+
 		<br><br>
-		<input type="submit" class="submit" id="saveEdits" name="submit" value="Save Changes">
+		<!-- <input type="submit" class="submit" id="saveEdits" name="submit" value="Save Changes"> -->
 
 	</form>
 

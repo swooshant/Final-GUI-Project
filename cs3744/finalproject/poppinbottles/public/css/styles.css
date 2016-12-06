@@ -47,6 +47,13 @@ img.logo{
   margin: 9px 0px -5px 10px;
 }
 
+img.footerlogo {
+	width: 32px;
+  height: 32px;
+  max-width: 100%;
+  margin: 9px 0px -5px 10px;
+}
+
 .inputForm{
   border: 1px solid black;
   padding: 5px;
@@ -135,6 +142,7 @@ img.logo{
 #bodyWrapper{
 	margin-left: auto;
 	margin-right: auto;
+	margin-top:0;
 	width: 100%;
 	/*height: 100%;*/
 }
@@ -202,7 +210,6 @@ img.logo{
 	text-align: center;
 	width: 100%;
 	background-color: #FAD6A5;
-	overflow-x: scroll;
 	display: inline-flex;
 }
 
@@ -211,7 +218,7 @@ img.logo{
 }
 
 #vineyards{
-	margin: 20px 0px 0px 0px;
+	margin: auto;
 	width: 100%;
 	background: #333;
 	text-align: center;
@@ -249,7 +256,7 @@ img.logo{
   width:75%;
   text-align: center;
   padding-top: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 0px;
   height: 100%;
 }
 
@@ -265,7 +272,7 @@ img.logo{
 	margin-top: 5px;
 	margin-bottom: 5px; 
 	text-align: inherit;
-	height: 540px;
+	height: 440px;
 }
 
 .product img{
@@ -499,7 +506,8 @@ img.logo{
 	width: 60%;
 	margin: auto;
 	margin-bottom: 20px;
-	margin-top: 20px;
+	margin-top: 0px;
+	padding-top:0;
 }
 
 #mapPic{
@@ -577,6 +585,14 @@ img.logo{
 }
 
 #contact{
+	float: right;
+	display: inline-block;
+	width: 33%;
+	text-align: center;
+	margin-right: -20px;
+}
+
+#newsletter{
 	float: left;
 	display: inline-block;
 	width: 33%;
@@ -585,14 +601,8 @@ img.logo{
 	text-align: center;
 	border-left: solid;
 	border-right: solid;
-}
 
-#newsletter{
-	float: right;
-	display: inline-block;
-	width: 33%;
-	text-align: center;
-	margin-right: -20px;
+	
 }
 
 #newsletter .submit{
@@ -666,3 +676,91 @@ p.zipcodefield {
 }
 /*End Location*/
 
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+/* The Close Button */
+.close {
+    cursor: pointer;
+    margin-right: 1%;
+}
+
+.modal-header {
+	background-color: #821f09;
+	padding: 2px 16px;
+
+}
+
+.modal-footer {
+	background-color: #821f09;
+	margin-top: 1%;
+	padding: 2px 16px;
+}
+
+#mapContainer {
+	margin: auto;
+	margin-top: 20px;
+	background-color: #1C6BA0;
+}
+.parallax { 
+	width:100%;
+	min-height:500px;
+	background-image: url("../img/vin1.jpg");
+ 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+ul li a.fb{
+background: url(../img/icons.png) no-repeat 0px -71px;
+width:72px;
+height:72px;
+display:block;
+}
+ul li a.twit{
+background: url(../img/icons.png) no-repeat -99px -71px;
+width:72px;
+height:72px;
+display:block;
+}
+ul li a.goog{
+background: url(../img/icons.png) no-repeat -399px -71px;
+width:72px;
+height:72px;
+display:block;
+}
+
+ul{
+padding:0;
+margin:45px 0 0 0;
+}
+ul li{
+list-style-type:none;
+display:inline-block;
+margin-right:25px;
+}

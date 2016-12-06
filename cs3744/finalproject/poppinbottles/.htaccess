@@ -7,13 +7,16 @@ RewriteEngine on
 
 # Site
 RewriteRule ^$ app/controller/siteController.php?action=home [QSA,L]
+RewriteRule ^age/?$ app/controller/siteController.php?action=updateAge [QSA,L]
 RewriteRule ^browse/?$ app/controller/siteController.php?action=browse [QSA,L]
+RewriteRule ^browse/(\d+)/?$ app/controller/siteController.php?action=browse&color=$1 [QSA,L]
 RewriteRule ^aboutUs/?$ app/controller/siteController.php?action=aboutUs [QSA,L]
 RewriteRule ^processLogin/?$ app/controller/siteController.php?action=processLogin [QSA,L]
 RewriteRule ^processLogout/?$ app/controller/siteController.php?action=processLogout [QSA,L]
 RewriteRule ^processNewsLetter/?$ app/controller/siteController.php?action=processNewsLetter [QSA,L]
 RewriteRule ^login/?$ app/controller/siteController.php?action=home [QSA,L]
 RewriteRule ^locations/?$ app/controller/siteController.php?action=locations [QSA,L]
+RewriteRule ^worldMap/?$ app/controller/siteController.php?action=worldMap [QSA,L]
 RewriteRule ^search/?$ app/controller/siteController.php?action=search [QSA,L]
 RewriteRule ^createAccount/?$ app/controller/siteController.php?action=createAccount [QSA,L]
 RewriteRule ^createAccounts/process/?$ app/controller/siteController.php?action=processNewUser [QSA,L]

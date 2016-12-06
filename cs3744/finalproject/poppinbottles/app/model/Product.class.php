@@ -14,6 +14,9 @@ class Product extends DbObject {
     protected $Img_Url;
     protected $Creator_Id;
     protected $Rating;
+    protected $red;
+    protected $white;
+    protected $Location;
 
     // constructor
     public function __construct($args = array()) {
@@ -27,7 +30,10 @@ class Product extends DbObject {
             'Img_Url' => null,
             'Creator_Id' => 0,
             'Date_Created' => null,
-            'Rating' => null
+            'Rating' => null,
+            'red' => 0,
+            'white' => 0,
+            'Location' => null
             );
 
         $args += $defaultArgs;
@@ -42,6 +48,9 @@ class Product extends DbObject {
         $this->Creator_Id = $args['Creator_Id'];
         $this->Date_Created = $args['Date_Created'];
         $this->Rating = $args['Rating'];
+        $this->red = $args['red'];
+        $this->white = $args['white'];
+        $this->Location = $args['Location'];
     }
 
     // save changes to object
@@ -57,7 +66,10 @@ class Product extends DbObject {
             'Img_Url' => $this->Img_Url,
             'Creator_Id' => $this->Creator_Id,
             'Date_Created' => $this->Date_Created,
-            'Rating' => $this->Rating
+            'Rating' => $this->Rating,
+            'red' => $this->red,
+            'white' => $this->white,
+            'Location' => $this->Location
             );
         $db->store($this, __CLASS__, self::DB_TABLE, $db_properties);
     }
@@ -73,6 +85,32 @@ class Product extends DbObject {
         $db = Db::instance();
         $db->delete($id, self::DB_TABLE);
     }
+
+    public static function getRed() {
+        $query = sprintf("SELECT * FROM `%s` WHERE red = %d ",
+        self::DB_TABLE,
+        1);
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        
+        return ($result);
+    }
+
+    public static function getWhite() {
+        $query = sprintf("SELECT * FROM `%s` WHERE white = %d ",
+        self::DB_TABLE,
+        1);
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+
+        if (!mysql_num_rows($result)) {
+            return null;
+        }
+
+        return ($result);
+    }    
 
     public static function getByCreator($creatorID) {
         if ($creatorID == null) {
@@ -131,6 +169,34 @@ class Product extends DbObject {
         //     }
         //     return ($objects);
         // }
+    }
+
+    public static function getAllColorProducts($ordering=null, $limit=null) {
+      if($limit){
+           $query = sprintf(" SELECT * FROM %s ORDER BY %s DESC LIMIT %s ",
+            self::DB_TABLE,
+            $ordering,
+            $limit
+            );
+       }
+       else{
+        $query = sprintf(" SELECT * FROM %s ORDER BY %s DESC ",
+            self::DB_TABLE,
+            $ordering
+            );
+        }   
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+                $objects[] = self::loadById($row['id']);
+            }
+            return ($objects);
+        }
     }
 
 }

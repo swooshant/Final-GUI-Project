@@ -6,8 +6,10 @@
 		<title> BottleUp </title>
 		
 	    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/public/css/styles.css">
+	     
   		<script type="text/javascript" src="<?= BASE_URL ?>/public/js/jquery-3.1.0.min.js"></script>
-  		<script type="text/javascript" src="<?= BASE_URL ?>/public/js/scripts.js"></script>		
+  		<script type="text/javascript" src="<?= BASE_URL ?>/public/js/scripts.js"></script>
+  				
 	    	<script type="text/javascript">
 	    		var baseURL = '<?= BASE_URL ?>';
 	    		
@@ -16,7 +18,7 @@
 
 	<body>
 		<div id="header">
-			<a href="<?= BASE_URL ?>/">
+			<a href="<?= BASE_URL ?>">
 			<h1>
 				BottleUp	
 			</h1>
@@ -52,10 +54,11 @@
 			?>
 
 			<ul class="primary-nav">
-				<li><a <?= isSelected($pageName, 'Home') ?> href="<?= BASE_URL ?>/">Home</a></li>
+				<li><a <?= isSelected($pageName, 'Home') ?> href="<?= BASE_URL ?>">Home</a></li>
 				<li><a <?= isSelected($pageName, 'browse') ?> href="<?= BASE_URL ?>/browse/">Browse</a></li>
 				<li><a <?= isSelected($pageName, 'aboutUs') ?> href="<?= BASE_URL ?>/aboutUs/">About Us</a></li>
 				<li><a <?= isSelected($pageName, 'locations') ?> href="<?= BASE_URL ?>/locations/">Find Locations</a></li>
+				<li><a <?= isSelected($pageName, 'worldMap') ?> href="<?= BASE_URL ?>/worldMap/">World Map</a></li>
 
 				<?php if((isset($_SESSION['admin'])) && ($_SESSION['admin'] == 1)): ?>
 					<li><a <?= isSelected($pageName, 'addItem') ?> href="<?= BASE_URL ?>/addItem">Add Item</a></li>

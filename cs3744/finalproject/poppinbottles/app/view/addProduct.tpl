@@ -19,6 +19,11 @@
 		<br><br><br>
 		<label>Image URL: <br><input type="text" name="Img_Url"></label>
 		<br><br><br>
+		<label>Wine Type: <br>
+		<input type="radio" name="wineType" value="red" checked="checked">Red
+		<input type="radio" name="wineType" value="white">White
+		</label>
+		<br><br><br>
 		<input type="submit" class="submit" id="addProduct" name="submit" value="Save Changes">
 
 	</form>

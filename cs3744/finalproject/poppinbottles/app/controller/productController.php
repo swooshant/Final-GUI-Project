@@ -53,6 +53,10 @@ class ProductController {
 					$this->sessionPost($productID);
 				}
 			break;
+			case 'postBrowse':
+				$filterBox = $_GET['color'];
+				$this->postBrowse($filterBox);
+			break;
 			case 'addToCart':
 				$this->addToCart();
 			break;
@@ -109,6 +113,12 @@ class ProductController {
 		$newProduct->set('Price', $_POST['Price']);
 		$newProduct->set('Rating', $_POST['Rating']);
 		$newProduct->set('Img_Url', $_POST['Img_Url']);
+		if ($_POST['wineType'] == 'red') {
+			 	$newProduct->set('red', 1);
+		}
+		else {
+			$newProduct->set('white', 1);
+		}
 		$newProduct->set('Creator_Id', $creator_id);
 
 		$newProduct -> save();
@@ -142,7 +152,14 @@ class ProductController {
 		$product->set('Rating', $_POST['Rating']);
 		$product->set('Img_Url', $_POST['Img_Url']);
 		$product->set('Creator_Id', $creator_id);
-
+		if ($_POST['wineType'] == 'red') {
+		 	$product->set('red', 1);
+		 	$product->set('white', 0);
+		}
+		else {
+			$product->set('white', 1);
+			$product->set('red', 0);
+		}
 
 		// did the title change?
 		if($product->get('title') != $title) {
@@ -210,7 +227,7 @@ class ProductController {
 			$cartQuantities = Cart::getCartQuantities($name);
 			$cartProducts = Cart::getCartProducts($name);
 
-	          	$cartData = array();
+	    $cartData = array();
 			for ($i = 0; $i < count($cartProducts); $i++) {
 				
 				$title = Product::loadById($cartProducts[$i])->get('WineTitle');
@@ -262,6 +279,5 @@ class ProductController {
 		// redirect us
 		header('Location: '.BASE_URL.'/products/view/'.$productID);
 		exit();
-	}
-	
+	}	
 }

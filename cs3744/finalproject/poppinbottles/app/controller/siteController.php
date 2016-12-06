@@ -14,8 +14,13 @@ class SiteController {
 	public function route($action) {
 
 		switch($action) {
+			
 			case 'home':
 				$this->home();
+			break;
+			case 'updateAge':
+				$userAge = $_POST['age'];
+				$this->updateAge($userAge);
 			break;
 			case 'aboutUs':
 				$this->aboutUs();
@@ -29,13 +34,17 @@ class SiteController {
 				$this->processLogout();
 			break;
 			case 'browse' :
-				$this->browse();
+				$filterBox = $_GET['color'];
+				$this->browse($filterBox);
 			break;
 			case 'processNewsLetter' :
 				$this->processNewsLetter();
 			break;
 			case 'locations' :
 				$this->locations();
+			break;
+			case 'worldMap' :
+				$this->worldMap();
 			break;
 			case 'search': 
 				$this->searchPage();
@@ -74,10 +83,20 @@ class SiteController {
 		}
 	}
 
+	/*public function checkAge() {
+		$pageName = 'Check';
+		include_once SYSTEM_PATH.'/view/checkAge.tpl';
+	}*/
+
 	//loads home page and also the top rated items
   	public function home() {
 		$pageName = 'Home';
+				
 		session_start();
+		if (!isset($_SESSION['is21']))	{
+			$_SESSION['is21'] = "false";
+		}
+		
 		$result = Product::getAllProducts("Rating", "0,5");
 		if(isset($_SESSION['userID'])) {
 			$events = Event::getEventsByFollowed($_SESSION['userID']);
@@ -87,13 +106,39 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/home.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
+		
+	}	
+
+	public function updateAge($a) {
+		session_start();
+		$data = json_decode($a);
+		$_SESSION['is21'] = $a;
+		echo $a;
 	}
 
 	//Browse page with all the items from the database
-	public function browse() {
+	public function browse($filterBox) {
 		$pageName = 'browse';
+		
+		$allCheck = False;
+		$redCheck = False;
+		$whiteCheck = False;
 
-		$result = Product::getAllProducts("Date_Created");
+		$result = [];
+
+		if ($filterBox == 2) {
+			$result = Product::getWhite();
+			$whiteCheck = True;
+
+		}
+		else if ($filterBox == 3) {
+			$result = Product::getRed();
+			$redCheck = True;
+		}
+		else {
+			$result = Product::getAllProducts("Date_Created");
+			$allCheck = True;
+		}
 
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/browse.tpl';
@@ -106,13 +151,20 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/aboutUs.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
-  	}
+  }
 
 	  //takes user to page to find locaitons near them
 	public function locations() {
 	  	$pageName = 'locations';
 	  	include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/location.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
+	}
+
+	public function worldMap() {
+	  	$pageName = 'worldMap';
+	  	include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/worldMap.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
@@ -169,13 +221,15 @@ class SiteController {
 		session_start(); 
 		if(isset($_SESSION['userID'])){
 			session_destroy();
+			session_start();
+			$_SESSION['is21'] = "true";
 			header('Location: '.BASE_URL);
 		}
 	}
 	
 	//adds users to the newsletter table
 	public function processNewsLetter() {
-		$newsLetterUsers = new Newsletter();
+		$newsLetterUsers = new NewsLetter();
 
 		$newsLetterUsers->set('Name', $_POST['name']);
 		$newsLetterUsers->set('Email', $_POST['email']);
