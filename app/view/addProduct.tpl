@@ -140,7 +140,7 @@
 	</form>
 	<?php else: ?>
 
-  	<h3> Admin Page ONLY! </h3>
+  	<h3> Must be logged in! </h3>
 
 	<?php endif; ?>
 

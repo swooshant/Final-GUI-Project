@@ -109,12 +109,30 @@ class Cart extends DbObject {
 
     	public static function deleteItems($userID) {
 
-		$query = sprintf(" DELETE FROM %s WHERE creator_id = %d ",
+    		if($userID == null) {
+    			return null;
+    		}
+
+			$query = sprintf(" DELETE FROM %s WHERE creator_id = %d ",
 	            self::DB_TABLE,
 	            $userID
-	      );
+			);
 
-	      $db = Db::instance();
-	      $result = $db->lookup($query);
+			$db = Db::instance();
+			$result = $db->lookup($query);
+    	}
+
+    	public static function removeDeleted($productID) {
+    		if ($productID == null) {
+    			return null;
+    		}
+
+    		$query = sprintf(" DELETE FROM %s WHERE product_id = %d ",
+	            self::DB_TABLE,
+	            $productID
+	        );
+
+	        $db = Db::instance();
+	        $result = $db->lookup($query);
     	}
 }

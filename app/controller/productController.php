@@ -92,6 +92,9 @@ class ProductController {
 	public function delete($id)
 	{
 		Product::deleteById($id);
+		Cart::removeDeleted($id);
+		Review::deleteReviews($id);
+		Event::deleteEvents($id);
 		header('Location: '.BASE_URL."/");
 	}
 
@@ -300,7 +303,7 @@ class ProductController {
 		while($row = mysql_fetch_assoc($mapProducts)) {
 			 // print_r("Row: ".$row['WineTitle']);
              // echo "Wine Title: ".$row['WineTitle'];
-             $mapArray = array('id' => $row['id'], 'name' => $row['WineTitle'], 'location' => $row['Location'], 'creatorID' => $row['Creator_Id'], 'price' => $row['Price'], 'shortDesc' => $row['ShortDesc'], 'imgURL' => $row['Img_Url']);
+             $mapArray = array('id' => $row['id'], 'name' => $row['WineTitle'], 'location' => $row['Location'], 'creatorID' => $row['Creator_Id'], 'price' => $row['Price'], 'shortDesc' => $row['ShortDesc'], 'imgURL' => $row['Img_Url'], 'rating' => $row['Rating'],'longDesc' => $row['LongDesc'], 'volumes' => $row['Volumes'], 'red' => $row['red'], 'white' => $row['white'], 'location' => $row['Location']);
              $maps[] = ($mapArray);
         }
 

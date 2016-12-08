@@ -76,4 +76,18 @@ class Review extends DbObject {
         }
     }
 
+    public static function deleteReviews($productID) {
+        if($productID==null) {
+          return null;
+        }
+
+        $query = sprintf(" DELETE FROM %s WHERE product_id = %d ",
+            self::DB_TABLE,
+            $productID
+        );
+
+        $db = Db::instance();
+        $result = $db->lookup($query);
+    }
+
 }

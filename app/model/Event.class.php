@@ -155,4 +155,19 @@ class Event extends DbObject {
 
     }
 
+    public static function deleteEvents($productID) {
+      if ($productID == null) {
+          return null;
+        }
+
+        $query = sprintf(" DELETE FROM `%s` WHERE product_1_id = %d OR product_2_id = %d",
+              self::DB_TABLE,
+              $productID,
+              $productID
+          );
+
+          $db = Db::instance();
+          $result = $db->lookup($query);
+    }
+
 }
