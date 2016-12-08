@@ -39,8 +39,10 @@
 
 				<br><br>
 				<a href="mailto:someone@example.com?Subject=Wine%20Questions" target="_top" style="color:white">bottleUp@vt.edu </a><br> <br>
+				<a href="<?=BASE_URL?>/" style="text-decoration: none; color:white">
 				<p style="font-family:Lato; font-size:25px;display:inline"><i><b>BottleUp</b></i></p>
 				<img class="footerlogo" src="<?= BASE_URL ?>/public/img/wine.png" alt="Logo" />
+				</a>
 				<!--Phone: 111-111-1111  <br> <br>
 				Location: 1234 Random Street, RandomCity, CA 90210 -->
 			</div>
@@ -69,6 +71,6 @@
 
 			</div>
 		</div>
-		<h4 id="copyright"> &copy; BottleUp </h4>
+		<h4 id="copyright"> &copy; BottleUp 2016 </h4>
 	</body>
 </html>

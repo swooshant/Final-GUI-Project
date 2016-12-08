@@ -64,6 +64,9 @@ class ProductController {
 				$productID = $_GET['pid'];
 				$this->addReview($productID);
 			break;
+			case 'wineMap':
+				$this->wineMap();
+			break;
 			//default case to home
 			default:
 				header('Location: '.BASE_URL."/");
@@ -113,6 +116,7 @@ class ProductController {
 		$newProduct->set('Price', $_POST['Price']);
 		$newProduct->set('Rating', $_POST['Rating']);
 		$newProduct->set('Img_Url', $_POST['Img_Url']);
+		$newProduct->set('Location', $_POST['Location']);
 		if ($_POST['wineType'] == 'red') {
 			 	$newProduct->set('red', 1);
 		}
@@ -151,7 +155,8 @@ class ProductController {
 		$product->set('Price', $_POST['Price']);
 		$product->set('Rating', $_POST['Rating']);
 		$product->set('Img_Url', $_POST['Img_Url']);
-		$product->set('Creator_Id', $creator_id);
+		$product->set('Location', $_POST['Location']);
+		// $product->set('Creator_Id', $creator_id);
 		if ($_POST['wineType'] == 'red') {
 		 	$product->set('red', 1);
 		 	$product->set('white', 0);
@@ -280,4 +285,17 @@ class ProductController {
 		header('Location: '.BASE_URL.'/products/view/'.$productID);
 		exit();
 	}	
+
+	public function wineMap(){
+		$mapProducts = Product::getAllProducts("Date_Created");
+		$mapArray = array();
+		$maps = array();
+		while($row = mysql_fetch_assoc($mapProducts)) {
+			 // print_r("Row: ".$row['WineTitle']);
+             // echo "Wine Title: ".$row['WineTitle'];
+             $mapArray = array('id' => $row['id'], 'name' => $row['WineTitle'], 'location' => $row['Location'], 'creatorID' => $row['Creator_Id']);
+             $maps[] = $mapArray;
+        }
+       echo json_encode($maps);
+	}
 }

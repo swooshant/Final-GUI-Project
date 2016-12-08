@@ -1,11 +1,19 @@
-<div id="bodyWrapper">
+<div id="bodyWrapper" class = "bodyMap">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
-	<script type="text/javascript" src="<?= BASE_URL ?>/public/js/datamaps.world.hires.min.js"></script> <!-- high res world map -->
+	<script type="text/javascript" src="<?= BASE_URL ?>/public/js/datamaps.world.hires.js"></script> <!-- high res world map -->
 
   	<h2 class="aboutUsHeadings" > Wine Regions </h2>
 
 	<div id="mapContainer" style="position: relative; width: 1000px; height: 500px;"></div>
+	<div id="mapProduct" style="display:none">
+		<h3>Title</h3>
+		
+		<div id="edit_delete_buttons" style="display:none">
+			<button class="submit" name="edit" value="editPressed" >Edit</button>
+			<button class="submit" name="delete" onclick="return confirm('Are you sure you want to delete this item?');" value="deletePressed">Delete</button>
+		</div>
+	</div>
 
 	<script>
 	var colors = d3.scale.category10();
@@ -13,7 +21,10 @@
 	    		element: document.getElementById('mapContainer'),
         		geographyConfig: {
             		highlightOnHover: true,
-            		popupOnHover: true
+            		popupOnHover: false
+        		},
+        		bubblesConfig: {
+        			exitDelay: 2000
         		},
         		fills: {
 				    defaultFill: "#ABDDA4",
@@ -103,14 +114,47 @@
 		        longitude: 138.5684
 		}];
 
+		var productData;
+
+		function getMap() {
+			
+			$.get(
+				baseURL+'/products/wineMap/',
+				function(data) {
+					productData = data;
+					console.log(data[0]);
+			      },
+		    			'json'
+		    	);
+		}
+
+		function getProductLinks(location)
+		{
+			var result = '';
+			for (var i in productData) {
+				var loc = productData[i].location;
+				if (loc == location)
+				{
+					var name = productData[i].name;
+					var productID = productData[i].id;
+					var creatorID = productData[i].creatorID;
+					result += "<button class='showProduct' name='" + creatorID + "' value='" + name + "' id='product" + productID + "'>" + name + "</button> ";
+				}
+
+			}
+			return result;
+		}
+		
+		getMap();
+
 		//draw bubbles for wine regions
 		map.bubbles(wineRegions, {
 		    popupTemplate: function (geo, data) {
+		    	     var products = getProductLinks(data.name);
 		            return ['<div class="hoverinfo">' +  data.name,
-		            //'<br/>Payload: ' +  data.yield + ' kilotons',
 		            '<br/>Country: ' +  data.country + '',
 		            '<br/>Signifance: ' + data.significance + '',
-		            //'<br/>Date: ' +  data.date + '',
+		            '<br/>Products: ' + products + '',
 		            '</div>'].join('');
 		    }
 		});
@@ -119,7 +163,21 @@
 			 var bubbleInfo = $(this).attr('data-info');
 			 var data = JSON.parse(bubbleInfo);
 			 var clickedBubbleName = data['name'];
-  			 alert('you clicked on the bubble ' + clickedBubbleName);
+			 var products = getProductLinks(clickedBubbleName);
+			 //console.log(products);
+		});
+
+		$(document).on("click", ".showProduct", function() {
+			var productID = $(this).attr('id');
+			var productName = $(this).attr('value');
+			var creatorID = $(this).attr('name');
+			console.log(productID);
+			var productDiv = $("#mapProduct");
+			productDiv.css('display', 'block');
+			$("#mapProduct h3").text(productName);
+			<?php if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1): ?>
+				$("#edit_delete_buttons").css("display", "block");
+			<?php endif; ?>
 		});
 
 	</script>

@@ -5,7 +5,7 @@
   <form action="<?= BASE_URL ?>/locations/" method="POST">
     <div class="zipcodecontainer">
       <input type='text' name='address' placeholder='Enter address or zip code' />
-      <input type='submit' value='Find!' />
+      <input class="submit" type='submit' value='Find!' />
     </div>
   </form>
 
@@ -95,5 +95,5 @@ else
 }
 }
 ?>
-
+<br>
     </div>

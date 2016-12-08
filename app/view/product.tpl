@@ -28,7 +28,7 @@
 <div id="bodyWrapper">
 	<div id="prodcontent-left">
 			<form  action="<?= BASE_URL ?>/products/processEditDel/<?= $product->get('id') ?>" method="POST" >
-				<img src="<?= BASE_URL ?>/public/img/<?= $product->get('Img_Url') ?>" alt="Wine product chosen">
+				<img class="product-image" src="<?= BASE_URL ?>/public/img/<?= $product->get('Img_Url') ?>" alt="Wine product chosen">
 				<br>
 				<form action="<?= BASE_URL ?>/products/processEditDel/<?= $product->get('id') ?>" method="POST" >
 					<?php if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1): ?>

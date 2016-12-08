@@ -208,7 +208,7 @@
 					<!-- <?php print_r($row['red']); ?> -->
 					<form  action="<?= BASE_URL ?>/products/processEditDel/<?= $row['id'] ?>" method="POST" >
 						<!-- All descriptions, wine names and images are from TotalWine.com -->
-						<div class="product">
+						<div class="product" id="productNum<?= $row['id']?>">
 							<a href="<?= BASE_URL ?>/products/view/<?= $row['id'] ?>">
 								<img class="product-image" src="<?= BASE_URL ?>/public/img/<?= $row['Img_Url'] ?>" alt="<?= $row['title'] ?>" />
 								<h3><?= $row['WineTitle'] ?></h3>

@@ -16,8 +16,6 @@
 				}				
 			?>
 
-
-
 	<form id="createAccount" action="<?= BASE_URL ?>/createAccounts/process" method="POST">
 		  <label>First Name: <input type="text" name="accountfirstname" class = "inputForm"></label><br>
 		  <label>Last Name: <input type="text" name="accountlastname" class = "inputForm"></label><br>

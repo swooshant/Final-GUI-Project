@@ -163,6 +163,10 @@ class SiteController {
 
 	public function worldMap() {
 	  	$pageName = 'worldMap';
+	  	// if($id = $_GET['pid']){
+	  	// 	$result = Product::loadById();
+	  	// 	$row = mysql_fetch_assoc($result);
+	  	// }
 	  	include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/worldMap.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';

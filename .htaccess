@@ -37,3 +37,4 @@ RewriteRule ^products/addItem/process app/controller/productController.php?actio
 RewriteRule ^products/updateCart/?$ app/controller/productController.php?action=addToCart [QSA,L]
 RewriteRule ^products/updatePostCart/?$ app/controller/productController.php?action=postCart [QSA,L]
 RewriteRule ^products/view/(\d+)/review/?$ app/controller/productController.php?action=addReview&pid=$1 [QSA,L]
+RewriteRule ^products/wineMap/?$ app/controller/productController.php?action=wineMap [QSA,L]

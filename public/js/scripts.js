@@ -174,10 +174,10 @@ $(document).ready(function(){
 			$(this).css('color', 'red');
 
 			if ( !$('#warning2').length ) {
-				$("#createAccount").prepend("<h1 id='warning2'>Empty Field(s)!</h1>");
+				$("#createAccount").prepend("<h3 id='warning2'>Empty Field(s)!</h3><br/>");
 				$("#warning2").css("color", "red");
-				$("#warning2").css("margin-right", "5px");
-				$("#warning2").css("font-size", "16pt");
+				$("#warning2").css("margin", "auto");
+				$("#warning2").css("font-size", "14pt");
 			}
 			return false;	
 		}

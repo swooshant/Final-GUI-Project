@@ -22,8 +22,17 @@
 		<label>Wine Type: <br>
 		<input type="radio" name="wineType" value="red" checked="checked">Red
 		<input type="radio" name="wineType" value="white">White
-		</label>
-		<br><br><br>
+		</label><br>
+		<label>Location:<br>
+		<select name="Location">
+			<option value="Napa Valley" selected>Napa Valley</option>
+			<option value="Mendoza" >Mendoza</option>
+			<option value="Bordeaux" >Bordeaux</option>
+			<option value="Tuscany" >Tuscany</option>
+			<option value="La Rioja Region" >La Rioja Region</option>
+			<option value="Yamanashi Prefecture">Yamanashi Prefecture</option>
+			<option value="Barossa Valley">Barossa Valley</option>
+		</select></label><br>
 		<input type="submit" class="submit" id="addProduct" name="submit" value="Save Changes">
 
 	</form>
