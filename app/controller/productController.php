@@ -99,6 +99,13 @@ class ProductController {
 	//displays the additem page, only when admin is logged in
 	public function addItem(){
 		$pageName = 'addItem';
+
+		$country = 'USA';
+
+		if ($_GET['pid']) {
+			$country = $_GET['pid'];
+		}
+
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/addProduct.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
@@ -293,9 +300,10 @@ class ProductController {
 		while($row = mysql_fetch_assoc($mapProducts)) {
 			 // print_r("Row: ".$row['WineTitle']);
              // echo "Wine Title: ".$row['WineTitle'];
-             $mapArray = array('id' => $row['id'], 'name' => $row['WineTitle'], 'location' => $row['Location'], 'creatorID' => $row['Creator_Id']);
-             $maps[] = $mapArray;
+             $mapArray = array('id' => $row['id'], 'name' => $row['WineTitle'], 'location' => $row['Location'], 'creatorID' => $row['Creator_Id'], 'price' => $row['Price'], 'shortDesc' => $row['ShortDesc'], 'imgURL' => $row['Img_Url']);
+             $maps[] = ($mapArray);
         }
+
        echo json_encode($maps);
 	}
 }

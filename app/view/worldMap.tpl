@@ -6,13 +6,22 @@
   	<h2 class="aboutUsHeadings" > Wine Regions </h2>
 
 	<div id="mapContainer" style="position: relative; width: 1000px; height: 500px;"></div>
+	<br><br>
 	<div id="mapProduct" style="display:none">
-		<h3>Title</h3>
-		
-		<div id="edit_delete_buttons" style="display:none">
-			<button class="submit" name="edit" value="editPressed" >Edit</button>
-			<button class="submit" name="delete" onclick="return confirm('Are you sure you want to delete this item?');" value="deletePressed">Delete</button>
-		</div>
+		<form action="" method="POST" >
+				<a href="">
+				<img class="product-image" src="" alt="" style="width:166px;height:10%"/>
+				<h3></h3>
+				</a>
+				<button class="submit" type="button" id ="updateCart" value="cartPressed" onclick=""> Add to Cart</button>
+				<p class="shortdesc"></p>
+				<p class="price"></p>
+
+				<div id="edit_delete_buttons" style="display:none">
+				<button class="submit" name="edit" value="editPressed" >Edit</button>
+				<button class="submit" name="delete" onclick="return confirm('Are you sure you want to delete this item?');" value="deletePressed">Delete</button>
+				</div>				
+		</form>
 	</div>
 
 	<script>
@@ -138,7 +147,11 @@
 					var name = productData[i].name;
 					var productID = productData[i].id;
 					var creatorID = productData[i].creatorID;
-					result += "<button class='showProduct' name='" + creatorID + "' value='" + name + "' id='product" + productID + "'>" + name + "</button> ";
+					var imgURL = productData[i].imgURL;
+					var shortDesc = productData[i].shortDesc;
+					var price = productData[i].price;
+
+					result += "<button class='showProduct' name='" + creatorID + "' value='" + name + "/" +  imgURL + "/" + shortDesc + "/" + price +"' id='product" + productID + "'>" + name + "</button> ";
 				}
 
 			}
@@ -155,6 +168,7 @@
 		            '<br/>Country: ' +  data.country + '',
 		            '<br/>Signifance: ' + data.significance + '',
 		            '<br/>Products: ' + products + '',
+		            '<br/><form action="<?=BASE_URL?>/addItem/' + data.country + '"><button class="submit">Add Wine to ' + data.name + '</button></form>' + '',
 		            '</div>'].join('');
 		    }
 		});
@@ -168,13 +182,32 @@
 		});
 
 		$(document).on("click", ".showProduct", function() {
+			$(this).submit();
 			var productID = $(this).attr('id');
-			var productName = $(this).attr('value');
+			var productValues = $(this).attr('value').split("/");
 			var creatorID = $(this).attr('name');
-			console.log(productID);
+			var productName = productValues[0];
+			var imgURL = productValues[1];
+			var shortDesc = productValues[2];
+			var price = productValues[3];
+
+			var productIDNew = productID.slice(7);
+
 			var productDiv = $("#mapProduct");
 			productDiv.css('display', 'block');
-			$("#mapProduct h3").text(productName);
+			$("#mapProduct form h3").text(productName);
+			$("#mapProduct form img").attr("src", "<?= BASE_URL ?>/public/img/"+imgURL);
+			$("#mapProduct form a").attr("href", "<?= BASE_URL ?>/products/view/"+productIDNew);
+			$("#mapProduct form p.shortdesc").text(shortDesc);
+			$("#mapProduct form p.price").text(price);
+			$("#mapProduct form button#updateCart").attr("onclick", "postToSession("+productIDNew+")");
+
+			$("#mapProduct form").attr("action", "<?= BASE_URL ?>/products/processEditDel/"+productIDNew);
+
+			if(creatorID == <?= $_SESSION["userID"] ?>) {
+				$("#edit_delete_buttons").css("display", "block");
+			}
+
 			<?php if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1): ?>
 				$("#edit_delete_buttons").css("display", "block");
 			<?php endif; ?>
